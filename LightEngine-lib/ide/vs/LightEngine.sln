@@ -1,0 +1,39 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30319.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LightEngine", "LightEngine\LightEngine.vcxproj", "{5E7759A3-6ACB-4A1C-9CB0-BE69CA7AB264}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sample", "Sample\Sample.vcxproj", "{AFE69C78-3988-45B7-8D20-7845B5135F19}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E7759A3-6ACB-4A1C-9CB0-BE69CA7AB264}.Debug|x64.ActiveCfg = Debug|x64
+		{5E7759A3-6ACB-4A1C-9CB0-BE69CA7AB264}.Debug|x64.Build.0 = Debug|x64
+		{5E7759A3-6ACB-4A1C-9CB0-BE69CA7AB264}.Release|x64.ActiveCfg = Release|x64
+		{5E7759A3-6ACB-4A1C-9CB0-BE69CA7AB264}.Release|x64.Build.0 = Release|x64
+		{AFE69C78-3988-45B7-8D20-7845B5135F19}.Debug|x64.ActiveCfg = Debug|x64
+		{AFE69C78-3988-45B7-8D20-7845B5135F19}.Debug|x64.Build.0 = Debug|x64
+		{AFE69C78-3988-45B7-8D20-7845B5135F19}.Release|x64.ActiveCfg = Release|x64
+		{AFE69C78-3988-45B7-8D20-7845B5135F19}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0120C6D7-AA39-43A0-BA87-D7C9FFA52096}
+	EndGlobalSection
+EndGlobal
