@@ -17,10 +17,11 @@ public:
 	bool SetState(State state);
 	int const GetDireccionH() { return direccionH; };
 	int const GetDireccionV() { return direccionV; };
-	int direccionH;
-	int direccionV;
+	int life = 3;
 
 private:
 	State mState = State::Idle;
 	int position;
+	int direccionH;
+	int direccionV;
 };
