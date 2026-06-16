@@ -17,6 +17,7 @@ class SampleScene : public Scene
 	Projectile* bulletTank2;
 
 private:
+	float dt;
 	int direccionH;
 	int direccionV;
 	sf::Vector2f position1;
