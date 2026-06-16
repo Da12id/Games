@@ -3,9 +3,9 @@
 #include "Scene.h"
 #include <vector>
 
-class DummyEntity;
 class Tank;
 class Projectile;
+class PowerUp;
 
 class SampleScene : public Scene
 {
@@ -15,11 +15,22 @@ class SampleScene : public Scene
 	Projectile* bulletTank1;
 	std::vector<Projectile*> projectiles2;
 	Projectile* bulletTank2;
+	PowerUp* powerUp;
 
 private:
-	float dt;
+	float dtTank1 = 0;
+	float dtTank2 = 0;
+	float dtPowerUp = 0;
+	float dtPowerUpEffect = 0;
+	float width;
+	float height;
+	float HorizontalLane;
+	float VerticalLane;
 	int direccionH;
 	int direccionV;
+	int ChoosePowerUp;
+	bool ActivePowerUp = false;
+	bool SomeoneDead = false;
 	sf::Vector2f position1;
 	sf::Vector2f position2;
 
@@ -29,7 +40,9 @@ public:
 	void OnUpdate() override;
 	void CreateProjectile();
 	void CreateProjectile2();
+	void SpawnPowerUp();
 	void Restart();
+	int PickNumber(int min, int max);
 };
 
 
