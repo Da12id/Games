@@ -63,6 +63,10 @@ void SampleScene::OnEvent(const sf::Event& event)
 			Tank2->SetDirection(0, 0, 0);
 		}
 	}
+
+	if (event.type == sf::Event::KeyPressed)
+		if (event.key.code == sf::Keyboard::R)
+			Restart();
 }
 
 void SampleScene::OnUpdate()
@@ -77,26 +81,31 @@ void SampleScene::OnUpdate()
 
 		for (int x = 0; x < projectiles2.size(); x++)
 		{
-			if (Tank1->IsColliding(projectiles2[x]))
+			if (projectiles2[x] != nullptr) 
 			{
-				Tank1->life--;
-				projectiles2[x]->Destroy();
-				std::cout << "Tank 1 a " << Tank1->life << " vies\n";
-			}
-			if (Tank1->life == 0)
-			{
-				Tank1->Destroy();
-				Tank1 = nullptr;
-				break;
+				if (Tank1->IsColliding(projectiles2[x]))
+				{
+					Tank1->life--;
+					projectiles2[x]->Destroy();
+					projectiles2[x] = nullptr;
+					std::cout << "Tank 1 a " << Tank1->life << " vies\n";
+				}
+				if (Tank1->life == 0)
+				{
+					Tank1->Destroy();
+					Tank1 = nullptr;
+					break;
+				}
 			}
 		}
 
 		for (int x = 0; x < projectiles.size(); x++)
 		{
-			if (Tank2->IsColliding(projectiles[x]))
+			if (projectiles[x] != nullptr && Tank2->IsColliding(projectiles[x]))
 			{
 				Tank2->life--;
 				projectiles[x]->Destroy();
+				projectiles[x] = nullptr;
 				std::cout << "Tank 2 a " << Tank2->life << " vies\n";
 			}
 			if (Tank2->life == 0)
@@ -132,4 +141,33 @@ void SampleScene::CreateProjectile2()
 		projectiles2.push_back(bulletTank2);
 		dt = 0;
 	}
+}
+
+void SampleScene::Restart()
+{
+	for (int x = 0; x < projectiles.size(); x++)
+	{
+		if(projectiles[x] != nullptr)
+		{
+			projectiles[x]->Destroy();
+			projectiles[x] = nullptr;
+		}
+	}
+
+	for (int x = 0; x < projectiles2.size(); x++)
+	{
+		if (projectiles2[x] != nullptr)
+		{
+			projectiles2[x]->Destroy();
+			projectiles2[x] = nullptr;
+		}
+	}
+
+	if (Tank1 != nullptr)
+		Tank1->Destroy();
+
+	if (Tank2 != nullptr)
+		Tank2->Destroy();
+
+	OnInitialize();
 }

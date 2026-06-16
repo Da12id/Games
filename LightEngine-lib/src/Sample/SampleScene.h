@@ -29,6 +29,7 @@ public:
 	void OnUpdate() override;
 	void CreateProjectile();
 	void CreateProjectile2();
+	void Restart();
 };
 
 
