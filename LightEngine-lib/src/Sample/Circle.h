@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+#include <vector>
+
 class Circle : public Entity
 {
 public:
@@ -18,6 +20,8 @@ public:
 	void SetState(State state) {mState = state;};
 	State GetState() { return mState; };
 	bool IsGood(Circle* circle);
+	sf::Vector2f pos;
+	float dt;
 
 private:
 	State mState = State::Count;
