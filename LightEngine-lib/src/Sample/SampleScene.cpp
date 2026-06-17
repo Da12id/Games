@@ -36,10 +36,16 @@ void SampleScene::OnEvent(const sf::Event& event)
 		if (event.type == sf::Event::KeyPressed)
 		{
 			if (event.key.code == sf::Keyboard::Z)
-				Tank1->SetDirection(10 * Tank1->GetDireccionH(), 10 * Tank1->GetDireccionV(), Tank1->GetSpeed());
+			{
+				activeZ = true;
+				WhatCommand(sf::Keyboard::Z);
+			}
 
 			if (event.key.code == sf::Keyboard::S)
-				Tank1->SetDirection(-10 * Tank1->GetDireccionH(), -10 * Tank1->GetDireccionV(), Tank1->GetSpeed());
+			{
+				activeS = true;
+				WhatCommand(sf::Keyboard::S);
+			}
 
 			if (event.key.code == sf::Keyboard::D)
 				Tank1->SetState(Tank::State::Right);
@@ -48,13 +54,21 @@ void SampleScene::OnEvent(const sf::Event& event)
 				Tank1->SetState(Tank::State::Left);
 
 			if (event.key.code == sf::Keyboard::A)
-				CreateProjectile();
+			{
+				WhatCommand(sf::Keyboard::A);
+			}
 
 			if (event.key.code == sf::Keyboard::Up)
-				Tank2->SetDirection(10 * Tank2->GetDireccionH(), 10 * Tank2->GetDireccionV(), Tank2->GetSpeed());
+			{
+				activeUp = true;
+				WhatCommand(sf::Keyboard::Up);
+			}
 
 			if (event.key.code == sf::Keyboard::Down)
-				Tank2->SetDirection(-10 * Tank2->GetDireccionH(), -10 * Tank2->GetDireccionV(), Tank2->GetSpeed());
+			{
+				activeDown = true;
+				WhatCommand(sf::Keyboard::Down);
+			}
 
 			if (event.key.code == sf::Keyboard::Right)
 				Tank2->SetState(Tank::State::Right);
@@ -63,7 +77,10 @@ void SampleScene::OnEvent(const sf::Event& event)
 				Tank2->SetState(Tank::State::Left);
 
 			if (event.key.code == sf::Keyboard::Space)
-				CreateProjectile2();
+			{
+				activeSpace = true;
+				WhatCommand(sf::Keyboard::Space);
+			}
 		}
 		if (event.type == sf::Event::KeyReleased)
 		{
@@ -75,6 +92,14 @@ void SampleScene::OnEvent(const sf::Event& event)
 	if (event.type == sf::Event::KeyPressed)
 		if (event.key.code == sf::Keyboard::R)
 			Restart();
+}
+
+void SampleScene::WhatCommand(const sf::Keyboard::Key touch)
+{
+	switch (touch)
+	{
+
+	}
 }
 
 void SampleScene::OnUpdate()

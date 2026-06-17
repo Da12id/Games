@@ -31,12 +31,19 @@ private:
 	int ChoosePowerUp;
 	bool ActivePowerUp = false;
 	bool SomeoneDead = false;
+	bool activeZ = false;
+	bool activeA = false;
+	bool activeS = false;
+	bool activeSpace = false;
+	bool activeUp = false;
+	bool activeDown = false;
 	sf::Vector2f position1;
 	sf::Vector2f position2;
 
 public:
 	void OnInitialize() override;
 	void OnEvent(const sf::Event& event) override;
+	void WhatCommand(const sf::Keyboard::Key touch);
 	void OnUpdate() override;
 	void CreateProjectile();
 	void CreateProjectile2();
