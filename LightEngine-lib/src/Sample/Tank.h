@@ -11,6 +11,9 @@ public:
 		Idle,
 		Right,
 		Left,
+		Up,
+		Down,
+		Stop,
 
 		Count
 	};
@@ -22,7 +25,8 @@ public:
 	int const GetDireccionV() { return direccionV; };
 	int const GetLife() { return life; };
 	float const GetDelay() { return delay; };
-	float GetSpeed() {return this->mSpeed; };
+	float const GetSpeed() {return mSpeed; };
+	State const GetState() { return mState; };
 	void DecrementLife() { life--; };
 	void SetDelay(float newDelay) { delay = newDelay; };
 	void ApplyPowerUp(PowerUp* powerUp, Tank* otherTank);
@@ -30,6 +34,7 @@ public:
 	void DecreaseSpeed(Tank* otherTank, float newSpeed) { otherTank->SetSpeed(newSpeed); };
 	void DecreaseDelay(float newDelay) { this->SetDelay(newDelay); };
 	void IncreaseDelay(Tank* otherTank, float newDelay){otherTank->SetDelay(newDelay);};
+	bool CanShoot = false;
 
 private:
 	State mState = State::Idle;

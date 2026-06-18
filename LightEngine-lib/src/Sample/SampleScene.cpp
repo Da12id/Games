@@ -37,69 +37,93 @@ void SampleScene::OnEvent(const sf::Event& event)
 		{
 			if (event.key.code == sf::Keyboard::Z)
 			{
-				activeZ = true;
-				WhatCommand(sf::Keyboard::Z);
+				Tank1->SetState(Tank::State::Up);
 			}
 
 			if (event.key.code == sf::Keyboard::S)
 			{
-				activeS = true;
-				WhatCommand(sf::Keyboard::S);
+				Tank1->SetState(Tank::State::Down);
 			}
 
 			if (event.key.code == sf::Keyboard::D)
+			{
 				Tank1->SetState(Tank::State::Right);
+			}
 
 			if (event.key.code == sf::Keyboard::Q)
+			{
 				Tank1->SetState(Tank::State::Left);
+			}
 
 			if (event.key.code == sf::Keyboard::A)
 			{
-				WhatCommand(sf::Keyboard::A);
+				Tank1->CanShoot = true;
 			}
-
+		
 			if (event.key.code == sf::Keyboard::Up)
 			{
-				activeUp = true;
-				WhatCommand(sf::Keyboard::Up);
+				Tank2->SetState(Tank::State::Up);
 			}
 
 			if (event.key.code == sf::Keyboard::Down)
 			{
-				activeDown = true;
-				WhatCommand(sf::Keyboard::Down);
+				Tank2->SetState(Tank::State::Down);
 			}
 
 			if (event.key.code == sf::Keyboard::Right)
+			{
 				Tank2->SetState(Tank::State::Right);
+			}
 
 			if (event.key.code == sf::Keyboard::Left)
+			{
 				Tank2->SetState(Tank::State::Left);
+			}
 
 			if (event.key.code == sf::Keyboard::Space)
 			{
-				activeSpace = true;
-				WhatCommand(sf::Keyboard::Space);
+				Tank2->CanShoot = true;
 			}
 		}
+
 		if (event.type == sf::Event::KeyReleased)
 		{
-			Tank1->SetDirection(0, 0, 0);
-			Tank2->SetDirection(0, 0, 0);
+
+			if (event.key.code == sf::Keyboard::Z)
+			{
+				Tank1->SetState(Tank::State::Stop);
+			}
+
+			if (event.key.code == sf::Keyboard::S)
+			{
+				Tank1->SetState(Tank::State::Stop);
+			}
+
+			if (event.key.code == sf::Keyboard::A)
+			{
+				Tank1->CanShoot = false;
+			}
+
+			if (event.key.code == sf::Keyboard::Up)
+			{
+				Tank2->SetState(Tank::State::Stop);
+			}
+
+			if (event.key.code == sf::Keyboard::Down)
+			{
+				Tank2->SetState(Tank::State::Stop);
+			}
+
+			if (event.key.code == sf::Keyboard::Space)
+			{
+				Tank2->CanShoot = false;
+			}
 		}
 	}
 
 	if (event.type == sf::Event::KeyPressed)
 		if (event.key.code == sf::Keyboard::R)
 			Restart();
-}
-
-void SampleScene::WhatCommand(const sf::Keyboard::Key touch)
-{
-	switch (touch)
-	{
-
-	}
 }
 
 void SampleScene::OnUpdate()
@@ -136,6 +160,12 @@ void SampleScene::OnUpdate()
 
 		if (Tank2->GetPosition().x >= width)
 			Tank2->SetPosition(width - 10, Tank2->GetPosition().y);
+
+		if(Tank1->CanShoot == true)
+			CreateProjectile();
+
+		if(Tank2->CanShoot == true)
+			CreateProjectile2();
 
 		if (bulletTank1 != nullptr)
 		{

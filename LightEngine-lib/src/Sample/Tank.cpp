@@ -16,6 +16,14 @@ void Tank::OnUpdate()
 	case State::Idle:
 		break;
 
+	case State::Up:
+		SetDirection(10 * GetDireccionH(), 10 * GetDireccionV(), GetSpeed());
+		break;
+
+	case State::Down:
+		SetDirection(-10 * GetDireccionH(), -10 * GetDireccionV(), GetSpeed());
+		break;
+
 	case State::Right:
 		position++;
 		SetState(Tank::State::Idle);
@@ -24,6 +32,10 @@ void Tank::OnUpdate()
 	case State::Left:
 		position--;
 		SetState(Tank::State::Idle);
+		break;
+
+	case State::Stop:
+		SetDirection(0, 0, 0);
 		break;
 	}
 
