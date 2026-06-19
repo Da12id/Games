@@ -28,7 +28,6 @@ void SampleScene::OnEvent(const sf::Event& event)
 	{
 		if (loose == false)
 		{
-			snake[x]->OldPosition = snake[x]->GetPosition();
 			if (event.type == sf::Event::KeyPressed)
 			{
 				if (event.key.code == sf::Keyboard::D)
@@ -65,6 +64,16 @@ void SampleScene::OnUpdate()
 
 	if(sizeSnake != nullptr)
 	{
+		for (int x = 0; x < snake.size(); x++)
+		{
+			snake[x]->OldPos = snake[x]->GetPosition();
+			MoveSnake(x);
+			if(x >= 1)
+			{
+				ChangeDirection(x);
+			}
+		}
+
 		if (snake[0]->IsColliding(apple))
 		{
 			apple->Destroy();
@@ -72,12 +81,6 @@ void SampleScene::OnUpdate()
 			SpawnApple();
 			snake[0]->SetState(Snake::State::Idle);
 			snake[0]->SetDirection(0, 0, 0);
-		}
-
-		for(int x = 1; x<snake.size(); x++)
-		{
-			if (snake[x-1]->OldPosition != snake[x-1]->GetPosition())
-				ChangeDirection(x);
 		}
 
 		if (snake[0]->GetPosition().y <= 0)
@@ -113,25 +116,36 @@ void SampleScene::OnUpdate()
 
 void SampleScene::IncrementSize()
 {
-	sizeSnake = CreateEntity<Snake>(30, sf::Color::Blue);
-	switch (snake[0]->GetState())
+	if (snake.size() == 1)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Red);
+	if (snake.size() == 2)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Yellow);
+	if (snake.size() == 3)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::White);
+	if (snake.size() == 4)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Black);
+	if (snake.size() == 5)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Magenta);
+	if (snake.size() == 6)
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Green);
+	/*switch (snake[0]->GetState())
 	{
 	case Snake::State::Up:
-		sizeSnake->SetPosition(snake[0]->GetPosition().x, snake[0]->GetPosition().y + sizeSnake->GetRadius() / 2);
+		sizeSnake->SetPosition(snake[0]->GetPosition().x, snake[0]->GetPosition().y + sizeSnake->GetRadius() );
 		break;
 
 	case Snake::State::Right:
-		sizeSnake->SetPosition(snake[0]->GetPosition().x - sizeSnake->GetRadius() / 2, snake[0]->GetPosition().y);
+		sizeSnake->SetPosition(snake[0]->GetPosition().x - sizeSnake->GetRadius() , snake[0]->GetPosition().y);
 		break;
 
 	case Snake::State::Down:
-		sizeSnake->SetPosition(snake[0]->GetPosition().x, snake[0]->GetPosition().y - sizeSnake->GetRadius() / 2);
+		sizeSnake->SetPosition(snake[0]->GetPosition().x, snake[0]->GetPosition().y - sizeSnake->GetRadius() );
 		break;
 
 	case Snake::Snake::State::Left:
-		sizeSnake->SetPosition(snake[0]->GetPosition().x + sizeSnake->GetRadius() / 2, snake[0]->GetPosition().y);
+		sizeSnake->SetPosition(snake[0]->GetPosition().x + sizeSnake->GetRadius() , snake[0]->GetPosition().y);
 		break;
-	}
+	}*/
 	snake.push_back(sizeSnake);
 }
 
@@ -141,27 +155,31 @@ void SampleScene::SpawnApple()
 	apple->SetPosition(VerticalLane * PickNumber(1, 7), HorizontalLane * PickNumber(1, 7));
 }
 
-void SampleScene::ChangeDirection(int x)
+void SampleScene::MoveSnake(int x)
 {
-	snake[x]->SetPosition(snake[x-1]->OldPosition.x, snake[x - 1]->OldPosition.y);
-	/*switch (snake[x - 1]->GetState())
+	switch (snake[x]->GetState())
 	{
 	case Snake::State::Up:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y + sizeSnake->GetRadius() / 2);
+		snake[x]->SetDirection(0, -10, 30);
 		break;
 
 	case Snake::State::Right:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x - sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
+		snake[x]->SetDirection(10, 0, 30);
 		break;
 
 	case Snake::State::Down:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y - sizeSnake->GetRadius() / 2);
+		snake[x]->SetDirection(0, 10, 30);
 		break;
 
-	case Snake::Snake::State::Left:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x + sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
+	case Snake::State::Left:
+		snake[x]->SetDirection(-10, 0, 30);
 		break;
-	}*/
+	}
+}
+
+void SampleScene::ChangeDirection(int x)
+{
+	snake[x]->SetPosition(snake[x-1]->OldPos.x, snake[x - 1]->OldPos.y);
 }
 
 int SampleScene::PickNumber(int min, int max)
@@ -189,3 +207,23 @@ void SampleScene::DrawLines()
 	Debug::DrawLine(VerticalLane * 6, 0, VerticalLane * 6, height, sf::Color::Green);
 	Debug::DrawLine(VerticalLane * 7, 0, VerticalLane * 7, height, sf::Color::Green);
 }
+
+	/*ceci fais bouger le serpetns mais comme un baton
+	switch (snake[x - 1]->GetState())
+	{
+	case Snake::State::Up:
+		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y + sizeSnake->GetRadius() / 2);
+		break;
+
+	case Snake::State::Right:
+		snake[x]->SetPosition(snake[x - 1]->GetPosition().x - sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
+		break;
+
+	case Snake::State::Down:
+		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y - sizeSnake->GetRadius() / 2);
+		break;
+
+	case Snake::Snake::State::Left:
+		snake[x]->SetPosition(snake[x - 1]->GetPosition().x + sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
+		break;
+	}*/

@@ -27,6 +27,7 @@ public:
 	void OnUpdate() override;
 	void IncrementSize();
 	void SpawnApple();
+	void MoveSnake(int x);
 	void ChangeDirection(int x);
 	int PickNumber(int min, int max);
 

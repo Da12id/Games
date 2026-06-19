@@ -32,7 +32,7 @@ private:
 public:
 	bool SetState(State state);
 	State GetState() { return mState; };
-	sf::Vector2f OldPosition;
+	sf::Vector2f OldPos;
 
 };
 
