@@ -107,10 +107,11 @@ void SampleScene::OnUpdate()
 			loose = true;
 		}
 
-		for(int x = 10; x<snake.size(); x++)
+		for(int x = 13; x<snake.size(); x++)
 		{
 			if(snake[0]->IsInside(snake[x]->GetPosition().x, snake[x]->GetPosition().y))
 			{
+				snake[x]->ToDestroy();
 				sizeSnake->Destroy();
 				sizeSnake = nullptr;
 				loose = true;
@@ -118,12 +119,21 @@ void SampleScene::OnUpdate()
 				break;
 			}
 		}
+
+		if (loose == true)
+		{
+			for (int x = snake.size() - 1; x >= 0; x--)
+			{
+				snake[x]->Destroy();
+				snake.erase(snake.begin());
+			}
+		}
 	}
 }
 
 void SampleScene::IncrementSize()
 {
-	if(score == 10)
+	if(score == 13)
 		sizeSnake = CreateEntity<Snake>(30, sf::Color::White);
 	else
 		sizeSnake = CreateEntity<Snake>(30, sf::Color::Blue);
@@ -160,19 +170,19 @@ void SampleScene::MoveSnake(int x)
 	switch (snake[x]->GetState())
 	{
 	case Snake::State::Up:
-		snake[x]->SetDirection(0, -10, 30);
+		snake[x]->SetDirection(0, -10, 60);
 		break;
 
 	case Snake::State::Right:
-		snake[x]->SetDirection(10, 0, 30);
+		snake[x]->SetDirection(10, 0, 60);
 		break;
 
 	case Snake::State::Down:
-		snake[x]->SetDirection(0, 10, 30);
+		snake[x]->SetDirection(0, 10, 60);
 		break;
 
 	case Snake::State::Left:
-		snake[x]->SetDirection(-10, 0, 30);
+		snake[x]->SetDirection(-10, 0, 60);
 		break;
 	}
 }
