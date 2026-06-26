@@ -4,6 +4,7 @@
 #include "Apple.h"
 
 #include "Debug.h"
+#include <iostream>
 
 void SampleScene::OnInitialize()
 {
@@ -33,25 +34,21 @@ void SampleScene::OnEvent(const sf::Event& event)
 				if (event.key.code == sf::Keyboard::D)
 				{
 					snake[x]->SetState(Snake::State::Right);
-					//ChangeDirection();
 				}
 
 				else if (event.key.code == sf::Keyboard::S)
 				{
 					snake[x]->SetState(Snake::State::Down);
-					//ChangeDirection();
 				}
 
 				else if (event.key.code == sf::Keyboard::Q)
 				{
 					snake[x]->SetState(Snake::State::Left);
-					//ChangeDirection();
 				}
 
 				else if (event.key.code == sf::Keyboard::Z)
 				{
 					snake[x]->SetState(Snake::State::Up);
-					//ChangeDirection();
 				}
 			}
 		}
@@ -67,20 +64,19 @@ void SampleScene::OnUpdate()
 		for (int x = 0; x < snake.size(); x++)
 		{
 			snake[x]->OldPos = snake[x]->GetPosition();
-			MoveSnake(x);
-			if(x >= 1)
-			{
+			if(x == 0)
+				MoveSnake(x);
+			else
 				ChangeDirection(x);
-			}
 		}
 
 		if (snake[0]->IsColliding(apple))
 		{
+			score++;
+			std::cout << "tu a manger " << score << " pommes\n";
 			apple->Destroy();
 			IncrementSize();
 			SpawnApple();
-			snake[0]->SetState(Snake::State::Idle);
-			snake[0]->SetDirection(0, 0, 0);
 		}
 
 		if (snake[0]->GetPosition().y <= 0)
@@ -110,25 +106,29 @@ void SampleScene::OnUpdate()
 			sizeSnake = nullptr;
 			loose = true;
 		}
-	}
 
+		for(int x = 10; x<snake.size(); x++)
+		{
+			if(snake[0]->IsInside(snake[x]->GetPosition().x, snake[x]->GetPosition().y))
+			{
+				sizeSnake->Destroy();
+				sizeSnake = nullptr;
+				loose = true;
+				std::cout << "tu a perdue";
+				break;
+			}
+		}
+	}
 }
 
 void SampleScene::IncrementSize()
 {
-	if (snake.size() == 1)
-		sizeSnake = CreateEntity<Snake>(30, sf::Color::Red);
-	if (snake.size() == 2)
-		sizeSnake = CreateEntity<Snake>(30, sf::Color::Yellow);
-	if (snake.size() == 3)
+	if(score == 10)
 		sizeSnake = CreateEntity<Snake>(30, sf::Color::White);
-	if (snake.size() == 4)
-		sizeSnake = CreateEntity<Snake>(30, sf::Color::Black);
-	if (snake.size() == 5)
-		sizeSnake = CreateEntity<Snake>(30, sf::Color::Magenta);
-	if (snake.size() == 6)
-		sizeSnake = CreateEntity<Snake>(30, sf::Color::Green);
-	/*switch (snake[0]->GetState())
+	else
+		sizeSnake = CreateEntity<Snake>(30, sf::Color::Blue);
+
+	switch (snake[0]->GetState())
 	{
 	case Snake::State::Up:
 		sizeSnake->SetPosition(snake[0]->GetPosition().x, snake[0]->GetPosition().y + sizeSnake->GetRadius() );
@@ -145,7 +145,7 @@ void SampleScene::IncrementSize()
 	case Snake::Snake::State::Left:
 		sizeSnake->SetPosition(snake[0]->GetPosition().x + sizeSnake->GetRadius() , snake[0]->GetPosition().y);
 		break;
-	}*/
+	}
 	snake.push_back(sizeSnake);
 }
 

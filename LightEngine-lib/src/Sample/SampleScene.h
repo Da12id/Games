@@ -20,6 +20,7 @@ private:
 	float HorizontalLane;
 	float VerticalLane;
 	bool loose = false;
+	int score = 0;
 
 public:
 	void OnInitialize() override;
