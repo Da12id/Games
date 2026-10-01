@@ -228,7 +228,7 @@ void SampleScene::HowCircles(int* HowCircle)
 	else if (dtGame <= 20)
 		*HowCircle = 2;
 	else if (dtGame <= 30)
-		*HowCircle = 4;
+		*HowCircle = 3;
 }
 
 int SampleScene::PickNumber(int min, int max)
