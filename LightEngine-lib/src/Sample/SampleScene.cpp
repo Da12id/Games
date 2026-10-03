@@ -217,23 +217,3 @@ void SampleScene::DrawLines()
 	Debug::DrawLine(VerticalLane * 6, 0, VerticalLane * 6, height, sf::Color::Green);
 	Debug::DrawLine(VerticalLane * 7, 0, VerticalLane * 7, height, sf::Color::Green);
 }
-
-	/*ceci fais bouger le serpetns mais comme un baton
-	switch (snake[x - 1]->GetState())
-	{
-	case Snake::State::Up:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y + sizeSnake->GetRadius() / 2);
-		break;
-
-	case Snake::State::Right:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x - sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
-		break;
-
-	case Snake::State::Down:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x, snake[x - 1]->GetPosition().y - sizeSnake->GetRadius() / 2);
-		break;
-
-	case Snake::Snake::State::Left:
-		snake[x]->SetPosition(snake[x - 1]->GetPosition().x + sizeSnake->GetRadius() / 2, snake[x - 1]->GetPosition().y);
-		break;
-	}*/
